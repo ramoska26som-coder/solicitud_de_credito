@@ -25,10 +25,10 @@ var HOJA_RUBROS = 'Rubros';
 
 var COLUMNAS = [
   'fecha_envio','nombre','cedula','telefono','nacimiento','monto',
-  'empresa','rubro','dir_empresa','puesto','antiguedad','salario',
+  'empresa','rubro','ciudad_empresa','dir_empresa','puesto','antiguedad','salario',
   'prestaciones','frecuencia_pago','dias_pago','tiene_otros','otros_ingresos',
   'metodo_pago','destino','refiere','refiere_tel',
-  'direccion','tiempo_vivienda','tipo_vivienda','tipo_alquiler',
+  'ciudad_vivienda','direccion','tiempo_vivienda','tipo_vivienda','tipo_alquiler',
   'ref1_nombre','ref1_parentesco','ref1_tel',
   'ref2_nombre','ref2_parentesco','ref2_tel',
   'comprobantes','consentimiento'
