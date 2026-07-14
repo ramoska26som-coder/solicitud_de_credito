@@ -216,6 +216,11 @@
               <label>Especifica el rubro <span class="req">*</span></label>
               <input name="rubro_otro" placeholder="Escribe a qué se dedica la empresa"><div class="msg">Especifica el rubro.</div>
             </div>
+            <div class="field">
+              <label>Ciudad de la empresa <span class="req">*</span></label>
+              <select name="ciudad_empresa" class="placeholder ciudad" required></select><div class="msg">Selecciona la ciudad.</div>
+            </div>
+            <div class="field"></div>
             <div class="field full">
               <label>Dirección de la empresa <span class="req">*</span></label>
               <textarea name="dir_empresa" placeholder="Incluye mínimo 3 puntos de referencia" required></textarea>
@@ -308,15 +313,20 @@
               <textarea name="destino" required></textarea><div class="msg">Cuéntanos el destino del préstamo.</div>
             </div>
             <div class="field">
-              <label>¿Quién lo refiere? <span class="req">*</span></label>
-              <input name="refiere" required><div class="msg">Indica quién te refirió.</div>
+              <label>¿Quién lo refiere?</label>
+              <input name="refiere" placeholder="Opcional">
             </div>
             <div class="field">
-              <label>Teléfono de quien lo refiere <span class="req">*</span></label>
-              <input name="refiere_tel" inputmode="tel" placeholder="0000-0000" required><div class="msg">Ingresa el teléfono.</div>
+              <label>Teléfono de quien lo refiere</label>
+              <input name="refiere_tel" inputmode="tel" placeholder="Opcional">
             </div>
 
             <div class="divider"><span>Vivienda</span></div>
+            <div class="field">
+              <label>Ciudad de residencia <span class="req">*</span></label>
+              <select name="ciudad_vivienda" class="placeholder ciudad" required></select><div class="msg">Selecciona la ciudad.</div>
+            </div>
+            <div class="field"></div>
             <div class="field full">
               <label>¿Dónde vive? <span class="req">*</span></label>
               <textarea name="direccion" placeholder="Dirección con puntos de referencia" required></textarea><div class="msg">Ingresa tu dirección.</div>
@@ -408,11 +418,12 @@
 
 <script>
   /* =========== CONFIGURACIÓN =========== */
-  const SHEETS_URL = "https://script.google.com/macros/s/AKfycbys6yYf88RRxM-gnij-A5X0PuarRse8QHmYvrpzDZIoQXGHWEdEaGToPPewE7t8Q3b_/exec"; // debe terminar en /exec
+  const SHEETS_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT"; // debe terminar en /exec
   const WHATSAPP_DOCS = "50496658360"; // comprobantes (Honduras +504 9665-8360)
 
   const RUBROS_FALLBACK = ["Comercio","Servicios","Manufactura","Construcción","Transporte","Agricultura","Salud","Educación","Gobierno","Otro"];
   const PARENTESCOS = ["Madre","Padre","Hermano(a)","Hijo(a)","Primo(a)","Tío(a)","Sobrino(a)"];
+  const CIUDADES = ["San Pedro Sula","Choloma","Villanueva"];
 
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
@@ -435,10 +446,12 @@
   $$('[name="antiguedad_meses"],[name="vivienda_meses"]').forEach(s=>fillNumberSelect(s,0,11));
   $$('[name="quincena_1"],[name="quincena_2"],[name="dia_mensual"]').forEach(s=>fillNumberSelect(s,1,31));
 
-  $$('.parentesco').forEach(sel=>{
+  function fillSelect(sel,items){
     const ph=document.createElement('option');ph.value="";ph.disabled=true;ph.selected=true;ph.textContent="Selecciona…";sel.appendChild(ph);
-    PARENTESCOS.forEach(p=>{const o=document.createElement('option');o.textContent=p;sel.appendChild(o);});
-  });
+    items.forEach(p=>{const o=document.createElement('option');o.textContent=p;sel.appendChild(o);});
+  }
+  $$('.parentesco').forEach(sel=>fillSelect(sel,PARENTESCOS));
+  $$('.ciudad').forEach(sel=>fillSelect(sel,CIUDADES));
 
   function setRubros(list){
     const sel=$('#rubro');sel.innerHTML='';
